@@ -34,10 +34,10 @@ io.on('connection', (socket) => {
         console.log('createEmail', newEmail);
     });
 
-    socket.on('createMessage', (message) => {
+    socket.on('createMessage', (message, callback) => {
         console.log('createMessage', message);
         io.emit('newMessage', generateMessage(message.from, message.text));
-
+        callback("This is from the server.");//ack
         /*io.emit('newMessage', {//emit the message to every single connection
             from:message.from,
             text: message.text,
