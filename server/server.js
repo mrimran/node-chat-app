@@ -19,11 +19,11 @@ io.on('connection', (socket) => {
         console.log('User was disconnected');
     });
 
-    socket.emit('newEmail', {
+    /*socket.emit('newEmail', {
         from: 'test@testing.com',
         text: 'Hey, What is going on?',
         createdAt: 123
-    });
+    });*/
 
     socket.on('createEmail', (newEmail) => {
         console.log('createEmail', newEmail);
@@ -31,13 +31,18 @@ io.on('connection', (socket) => {
 
     socket.on('createMessage', (message) => {
         console.log('createMessage', message);
+        io.emit('newMessage', {//emit the message to every single connection
+            from:message.from,
+            text: message.text,
+            createdAt: new Date().getTime()
+        });
     });
 
-    socket.emit('newMessage', {
+    /*socket.emit('newMessage', {
         from: 'Testing',
         text: 'See you then',
         createdAt: 123123
-    });
+    });*/
 
 });
 
